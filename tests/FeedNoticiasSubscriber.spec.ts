@@ -14,6 +14,22 @@ describe('NewsFeed', () => {
     subscriber2 = new Subscriber(2, 'Juana');
   });
 
+  it('should subscribe', () => {
+    newsFeed.subscribe(subscriber1);
+    newsFeed.subscribe(subscriber2);
+
+    expect(newsFeed.subscribers.length).to.equal(2);
+  });
+
+  it('should unsubscribe', () => {
+    newsFeed.subscribe(subscriber1);
+    newsFeed.subscribe(subscriber2);
+
+    newsFeed.unsubscribe(subscriber1);
+
+    expect(newsFeed.subscribers.length).to.equal(1);
+  });
+
   it('should subscribe and notify observers', () => {
     newsFeed.subscribe(subscriber1);
     newsFeed.subscribe(subscriber2);
@@ -40,7 +56,6 @@ describe('NewsFeed', () => {
 
   it('should handle duplicate subscriptions', () => {
     newsFeed.subscribe(subscriber1);
-
     expect(() => newsFeed.subscribe(subscriber1)).to.throw('The observer had already been subscribed');
   });
 
